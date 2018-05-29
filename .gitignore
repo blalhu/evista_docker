@@ -2,5 +2,8 @@
 !.gitignore
 !nginx
 !nginx/*
+!mysql
+!mysql/data
+!mysql/data/.gitkeep
 !.env.sample
 !docker-compose.yml
