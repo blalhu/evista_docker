@@ -1,7 +1,10 @@
 *
 !.gitignore
 !nginx
-!nginx/*
+!nginx/config
+!nginx/config/*
+!nginx/logs
+!nginx/logs/.gitkeep
 !mysql
 !mysql/data
 !mysql/data/.gitkeep

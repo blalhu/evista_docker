@@ -6,8 +6,9 @@ services:
             magnum_net:
                 ipv4_address: 172.1.32.6
         volumes:
-            - ./nginx/site.dev.conf:/etc/nginx/conf.d/site.dev.conf
-            - ./nginx/site.prod.conf:/etc/nginx/conf.d/site.prod.conf
+            - ./nginx/config/site.dev.conf:/etc/nginx/conf.d/site.dev.conf
+            - ./nginx/config/site.prod.conf:/etc/nginx/conf.d/site.prod.conf
+            - ./nginx/logs:/var/log/nginx
             - ${HOST_DOCROOT}:/home/app/docroot
         ports:
             - ${HOST_PORT_DEV}:8800
