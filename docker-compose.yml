@@ -19,6 +19,8 @@ services:
         tty: true
         volumes:
             - ${HOST_DOCROOT}:/home/app/docroot
+            - ./php/config/fpm_php.ini:/etc/php/7.1/fpm/php.ini
+            - ./php/config/cli_php.ini:/etc/php/7.1/cli/php.ini
         networks:
             magnum_net:
               ipv4_address: 172.1.32.2

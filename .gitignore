@@ -12,5 +12,8 @@
 !mysql/config/my.cnf
 !mysql/logs
 !mysql/logs/.gitkeep
+!php
+!php/config
+!php/config/*
 !.env.sample
 !docker-compose.yml
