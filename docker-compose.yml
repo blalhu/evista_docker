@@ -1,0 +1,39 @@
+version: '3'
+services:
+    nginx:
+        image: nginx
+        networks:
+            magnum_net:
+                ipv4_address: 172.1.32.6
+        volumes:
+            - ./nginx/site.dev.conf:/etc/nginx/conf.d/site.dev.conf
+            - ./nginx/site.prod.conf:/etc/nginx/conf.d/site.prod.conf
+            - ${HOST_DOCROOT}:/home/app/docroot
+        ports:
+            - ${HOST_PORT_DEV}:8800
+            - ${HOST_PORT_PROD}:8801
+    php-71:
+        image: pelso/php${IB_DOCKER_PHP}:7.1
+        hostname: dev-magnum-php-71
+        tty: true
+        volumes:
+            - ${HOST_DOCROOT}:/home/app/docroot
+        networks:
+            magnum_net:
+              ipv4_address: 172.1.32.2
+    db:
+        image: percona/percona-server:5.7
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+        ports:
+            - ${HOST_PORT_DB}:3306
+        networks:
+            magnum_net:
+                ipv4_address: 172.1.32.3
+
+networks:
+    magnum_net:
+        driver: bridge
+        ipam:
+            config:
+                - subnet: 172.1.32.0/24
