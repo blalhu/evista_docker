@@ -38,6 +38,15 @@ services:
         networks:
             magnum_net:
                 ipv4_address: 172.1.32.3
+    pma:
+        image: phpmyadmin/phpmyadmin
+        ports:
+            - ${HOST_PORT_PMA}:80
+        environment:
+            - PMA_HOST=172.1.32.3
+        networks:
+            magnum_net:
+                ipv4_address: 172.1.32.7
 
 networks:
     magnum_net:
