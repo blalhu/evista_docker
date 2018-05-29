@@ -29,6 +29,7 @@ services:
         volumes:
             - ./mysql/config/my.cnf:/etc/mysql/my.cnf
             - ./mysql/data:/var/lib/mysql
+            - ./mysql/logs:/var/log/mysql
         ports:
             - ${HOST_PORT_DB}:3306
         networks:
