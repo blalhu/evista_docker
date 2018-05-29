@@ -5,5 +5,7 @@
 !mysql
 !mysql/data
 !mysql/data/.gitkeep
+!mysql/config
+!mysql/config/my.cnf
 !.env.sample
 !docker-compose.yml

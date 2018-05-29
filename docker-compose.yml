@@ -23,8 +23,12 @@ services:
               ipv4_address: 172.1.32.2
     db:
         image: percona/percona-server:5.7
+        restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=root
+        volumes:
+            - ./mysql/config/my.cnf:/etc/mysql/my.cnf
+            - ./mysql/data:/var/lib/mysql
         ports:
             - ${HOST_PORT_DB}:3306
         networks:
