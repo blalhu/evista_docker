@@ -15,5 +15,9 @@
 !php
 !php/config
 !php/config/*
+!php/binaries
+!php/binaries/*
+!php/binaries/wkhtml_tmp
+!php/binaries/wkhtml_tmp/.gitkeep
 !.env.sample
 !docker-compose.yml

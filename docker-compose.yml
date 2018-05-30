@@ -21,12 +21,13 @@ services:
             - ${HOST_DOCROOT}:/home/app/docroot
             - ./php/config/fpm_php.ini:/etc/php/7.1/fpm/php.ini
             - ./php/config/cli_php.ini:/etc/php/7.1/cli/php.ini
+            - ./php/binaries/wkhtmltopdf.php:/usr/local/bin/wkhtmltopdf
+            - ./php/binaries/wkhtml_tmp:/tmp/wkhtml
         networks:
             magnum_net:
-              ipv4_address: 172.1.32.2
+                ipv4_address: 172.1.32.2
     db:
         image: percona/percona-server:5.7
-        restart: always
         environment:
             - MYSQL_ROOT_PASSWORD=root
         volumes:
@@ -47,6 +48,14 @@ services:
         networks:
             magnum_net:
                 ipv4_address: 172.1.32.7
+    binaries:
+        image: ddsserviceseu/backend-binaries
+        volumes:
+            - ${HOST_DOCROOT}:/home/app/docroot
+            - ./php/binaries/wkhtml_tmp:/tmp/wkhtml
+        networks:
+            magnum_net:
+                ipv4_address: 172.1.32.8
 
 networks:
     magnum_net:
