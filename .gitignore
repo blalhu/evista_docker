@@ -6,12 +6,8 @@
 !nginx/logs
 !nginx/logs/.gitkeep
 !mysql
-!mysql/data
-!mysql/data/.gitkeep
 !mysql/config
 !mysql/config/my.cnf
-!mysql/logs
-!mysql/logs/.gitkeep
 !php
 !php/config
 !php/config/*
