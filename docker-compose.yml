@@ -54,6 +54,13 @@ services:
         networks:
             magnum_net:
                 ipv4_address: 172.1.32.8
+    mailcatcher:
+        image: mailhog/mailhog
+        ports:
+            - ${HOST_PORT_MAILCATCHER}:8025
+        networks:
+            magnum_net:
+                ipv4_address: 172.1.32.9
 
 networks:
     magnum_net:
