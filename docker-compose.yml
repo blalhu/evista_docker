@@ -3,29 +3,27 @@ services:
     nginx:
         image: nginx
         networks:
-            magnum_net:
-                ipv4_address: 172.1.32.6
+            evista_net:
+                ipv4_address: 172.1.64.2
         volumes:
             - ./nginx/config/site.dev.conf:/etc/nginx/conf.d/site.dev.conf
             - ./nginx/config/site.prod.conf:/etc/nginx/conf.d/site.prod.conf
             - ./nginx/logs:/var/log/nginx
-            - ${HOST_DOCROOT}:/home/app/docroot
+            - ${BACKEND_DOCROOT}:/home/app/docroot
         ports:
             - ${HOST_PORT_DEV}:8800
             - ${HOST_PORT_PROD}:8801
-    php-71:
-        image: pelso/php${IB_DOCKER_PHP}:7.1
-        hostname: dev-magnum-php-71
+    php-73:
+        image: pelso/php${IB_DOCKER_PHP}:7.3
+        hostname: dev-evista_backend-php-73
         tty: true
         volumes:
-            - ${HOST_DOCROOT}:/home/app/docroot
-            - ./php/config/fpm_php.ini:/etc/php/7.1/fpm/php.ini
-            - ./php/config/cli_php.ini:/etc/php/7.1/cli/php.ini
-            - ./php/binaries/wkhtmltopdf.php:/usr/local/bin/wkhtmltopdf
-            - ./php/binaries/wkhtml_tmp:/tmp/wkhtml
+            - ${BACKEND_DOCROOT}:/home/app/docroot
+            - ./php/config/fpm_php.ini:/etc/php/7.3/fpm/php.ini
+            - ./php/config/cli_php.ini:/etc/php/7.3/cli/php.ini
         networks:
-            magnum_net:
-                ipv4_address: 172.1.32.2
+            evista_net:
+                ipv4_address: 172.1.64.3
     db:
         image: percona/percona-server:5.7
         environment:
@@ -35,36 +33,20 @@ services:
         ports:
             - ${HOST_PORT_DB}:3306
         networks:
-            magnum_net:
-                ipv4_address: 172.1.32.3
+            evista_net:
+                ipv4_address: 172.1.64.4
     pma:
         image: phpmyadmin/phpmyadmin
         ports:
             - ${HOST_PORT_PMA}:80
         environment:
-            - PMA_HOST=172.1.32.3
+            - PMA_HOST=172.1.64.4
         networks:
-            magnum_net:
-                ipv4_address: 172.1.32.7
-    binaries:
-        image: ddsserviceseu/backend-binaries
-        volumes:
-            - ${HOST_DOCROOT}:/home/app/docroot
-            - ./php/binaries/wkhtml_tmp:/tmp/wkhtml
-        networks:
-            magnum_net:
-                ipv4_address: 172.1.32.8
-    mailcatcher:
-        image: mailhog/mailhog
-        ports:
-            - ${HOST_PORT_MAILCATCHER}:8025
-        networks:
-            magnum_net:
-                ipv4_address: 172.1.32.9
-
+            evista_net:
+                ipv4_address: 172.1.64.5
 networks:
-    magnum_net:
+    evista_net:
         driver: bridge
         ipam:
             config:
-                - subnet: 172.1.32.0/24
+                - subnet: 172.1.64.0/24
