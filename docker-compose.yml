@@ -44,6 +44,17 @@ services:
         networks:
             evista_net:
                 ipv4_address: 172.1.64.5
+    angular:
+        image: angular/ngcontainer:latest
+        hostname: dev-evista_frontend
+        tty: true
+        volumes:
+            - ${FRONTEND_DOCROOT}:/home/circleci/frontend
+        ports:
+            - ${HOST_PORT_ANGULAR}:4200
+        networks:
+            evista_net:
+                ipv4_address: 172.1.64.6
 networks:
     evista_net:
         driver: bridge
